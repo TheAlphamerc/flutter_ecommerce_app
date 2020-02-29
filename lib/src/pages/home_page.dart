@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/src/model/product.dart';
 import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/themes/theme.dart';
+import 'package:flutter_ecommerce_app/src/wigets/BottomNavigationBar/bootom_navigation_bar.dart';
 import 'package:flutter_ecommerce_app/src/wigets/prduct_icon.dart';
 import 'package:flutter_ecommerce_app/src/wigets/product_card.dart';
 import 'package:flutter_ecommerce_app/src/wigets/title_text.dart';
@@ -167,21 +168,37 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: LightColor.lightGrey,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _appBar(),
-              _title(),
-              _search(),
-              _categoryWidget(),
-              _productWidget()
-            ],
+          child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          SingleChildScrollView(
+            child: Container(
+              height: AppTheme.fullHeight(context) - 50,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                colors: [
+                  Color(0xfffbfbfb),
+                  Color(0xfff7f7f7),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _appBar(),
+                  _title(),
+                  _search(),
+                  _categoryWidget(),
+                  _productWidget()
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+          Positioned(bottom: 0, right: 0, child: CustomBottomNavigationBar())
+        ],
+      )),
     );
   }
 }

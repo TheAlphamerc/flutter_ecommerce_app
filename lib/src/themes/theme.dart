@@ -31,7 +31,8 @@ class AppTheme {
   static List<BoxShadow> shadow =  <BoxShadow>[
     BoxShadow(color: Color(0xfff8f8f8), blurRadius: 10, spreadRadius: 10),
   ];
-
+  
+  
   static EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 20, vertical: 10);
 
   static double fullWidth(BuildContext context){
