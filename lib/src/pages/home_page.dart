@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/src/model/data.dart';
 import 'package:flutter_ecommerce_app/src/model/product.dart';
 import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/themes/theme.dart';
@@ -24,7 +25,10 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          _icon(Icons.format_align_left),
+          RotatedBox(
+            quarterTurns: 4,
+            child: _icon(Icons.sort,color: Colors.black54),
+          ),
           Container(
             margin: EdgeInsets.all(10),
             padding: EdgeInsets.all(20),
@@ -46,14 +50,14 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _icon(IconData icon) {
+  Widget _icon(IconData icon, {Color color = LightColor.iconColor}) {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(13)),
           color: Theme.of(context).backgroundColor,
           boxShadow: AppTheme.shadow),
-      child: Icon(icon),
+      child: Icon(icon,color: color,),
     );
   }
 
@@ -82,21 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       width: AppTheme.fullWidth(context),
-      height: 70,
+      height: 80,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          SizedBox(width: 10),
-          ProducIcon(
-            text: 'Sneakers',
-            isSelected: true,
-          ),
-          ProducIcon(text: 'Watch'),
-          ProducIcon(text: 'Jacket'),
-          ProducIcon(text: 'Jacket'),
-          ProducIcon(text: 'Jacket'),
-        ],
-      ),
+        children: AppData.categoryList.map((category) => ProducIcon(model: category,)).toList()
+         ),
     );
   }
 
@@ -113,21 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisSpacing: 20),
         padding: EdgeInsets.only(left: 20),
         scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          PeoductCard(
-            product: Product(
-                name: 'Nike Air Max 200',
-                price: 240.00,
-                isSelected: true,
-                category: "Trending Now"),
-          ),
-          PeoductCard(
-            product: Product(
-                name: 'Nike Air Max 97',
-                price: 220.00,
-                category: "Trending Now"),
-          ),
-        ],
+        children: AppData.productList.map((product)=> ProductCard(product: product,)).toList()
       ),
     );
   }
@@ -142,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 40,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: LightColor.lightGrey,
+                  color: LightColor.lightGrey.withAlpha(100),
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: TextField(
                 decoration: InputDecoration(
@@ -153,13 +133,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         EdgeInsets.only(left: 10, right: 10, bottom: 0, top: 5),
                     prefixIcon: Icon(
                       Icons.search,
-                      color: LightColor.grey,
+                      color: Colors.black54
                     )),
               ),
             ),
           ),
           SizedBox(width: 20),
-          _icon(Icons.filter_list),
+          _icon(Icons.filter_list,color: Colors.black54),
         ],
       ),
     );
