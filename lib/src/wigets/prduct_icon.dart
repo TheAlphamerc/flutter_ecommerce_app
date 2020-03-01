@@ -35,11 +35,10 @@ class ProducIcon extends StatelessWidget {
         ],
       ),
       child: Row(
-        
         children: <Widget>[
           model.image != null ? Image.asset(model.image) : SizedBox(),
-          Container(
-
+          model.name == null ? Container()
+          : Container(
             child: TitleText(
               text: model.name,
               fontWeight: FontWeight.w700,

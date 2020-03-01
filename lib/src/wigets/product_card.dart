@@ -25,6 +25,7 @@ class _ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        Navigator.of(context).pushNamed('/detail');
         setState(() {
           // model.isSelected = !model.isSelected;
         //   AppData.productList.forEach((x) {
