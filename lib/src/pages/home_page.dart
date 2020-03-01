@@ -19,36 +19,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Widget _appBar() {
-    return Container(
-      padding: AppTheme.padding,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          RotatedBox(
-            quarterTurns: 4,
-            child: _icon(Icons.sort,color: Colors.black54),
-          ),
-          Container(
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(13)),
-              color: Theme.of(context).backgroundColor,
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: Color(0xfff8f8f8), blurRadius: 10, spreadRadius: 10),
-              ],
-              image: DecorationImage(
-                image: NetworkImage(
-                    "https://jshopping.in/images/detailed/591/ibboll-Fashion-Mens-Optical-Glasses-Frames-Classic-Square-Wrap-Frame-Luxury-Brand-Men-Clear-Eyeglasses-Frame.jpg"),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _icon(IconData icon, {Color color = LightColor.iconColor}) {
     return Container(
@@ -57,27 +27,9 @@ class _MyHomePageState extends State<MyHomePage> {
           borderRadius: BorderRadius.all(Radius.circular(13)),
           color: Theme.of(context).backgroundColor,
           boxShadow: AppTheme.shadow),
-      child: Icon(icon,color: color,),
-    );
-  }
-
-  Widget _title() {
-    return Container(
-      margin: AppTheme.padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TitleText(
-            text: 'Our',
-            fontSize: 30,
-            fontWeight: FontWeight.w400,
-          ),
-          TitleText(
-            text: 'Products',
-            fontSize: 30,
-            fontWeight: FontWeight.w700,
-          ),
-        ],
+      child: Icon(
+        icon,
+        color: color,
       ),
     );
   }
@@ -88,9 +40,12 @@ class _MyHomePageState extends State<MyHomePage> {
       width: AppTheme.fullWidth(context),
       height: 80,
       child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: AppData.categoryList.map((category) => ProducIcon(model: category,)).toList()
-         ),
+          scrollDirection: Axis.horizontal,
+          children: AppData.categoryList
+              .map((category) => ProducIcon(
+                    model: category,
+                  ))
+              .toList()),
     );
   }
 
@@ -100,15 +55,18 @@ class _MyHomePageState extends State<MyHomePage> {
       width: AppTheme.fullWidth(context),
       height: AppTheme.fullWidth(context) * .7,
       child: GridView(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1,
-            childAspectRatio: 4 / 3,
-            mainAxisSpacing: 30,
-            crossAxisSpacing: 20),
-        padding: EdgeInsets.only(left: 20),
-        scrollDirection: Axis.horizontal,
-        children: AppData.productList.map((product)=> ProductCard(product: product,)).toList()
-      ),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 1,
+              childAspectRatio: 4 / 3,
+              mainAxisSpacing: 30,
+              crossAxisSpacing: 20),
+          padding: EdgeInsets.only(left: 20),
+          scrollDirection: Axis.horizontal,
+          children: AppData.productList
+              .map((product) => ProductCard(
+                    product: product,
+                  ))
+              .toList()),
     );
   }
 
@@ -131,15 +89,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     hintStyle: TextStyle(fontSize: 12),
                     contentPadding:
                         EdgeInsets.only(left: 10, right: 10, bottom: 0, top: 5),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Colors.black54
-                    )),
+                    prefixIcon: Icon(Icons.search, color: Colors.black54)),
               ),
             ),
           ),
           SizedBox(width: 20),
-          _icon(Icons.filter_list,color: Colors.black54),
+          _icon(Icons.filter_list, color: Colors.black54),
         ],
       ),
     );
@@ -147,38 +102,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          SingleChildScrollView(
-            child: Container(
-              height: AppTheme.fullHeight(context) - 50,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                colors: [
-                  Color(0xfffbfbfb),
-                  Color(0xfff7f7f7),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              )),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  _appBar(),
-                  _title(),
-                  _search(),
-                  _categoryWidget(),
-                  _productWidget()
-                ],
-              ),
-            ),
-          ),
-          Positioned(bottom: 0, right: 0, child: CustomBottomNavigationBar())
-        ],
-      )),
-    );
+    return  Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[_search(), _categoryWidget(), _productWidget()],
+      );
   }
 }

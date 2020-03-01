@@ -13,7 +13,27 @@ class ProductDetailPage extends StatefulWidget {
   _ProductDetailPageState createState() => _ProductDetailPageState();
 }
 
-class _ProductDetailPageState extends State<ProductDetailPage> {
+class _ProductDetailPageState extends State<ProductDetailPage>
+    with TickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> animation;
+  @override
+  void initState() {
+    super.initState();
+    controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    animation = Tween<double>(begin: 0, end: 1).animate(
+         CurvedAnimation(parent: controller, curve: Curves.easeInToLinear));
+    controller.forward();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  bool isLiked = true;
   Widget _appBar() {
     return Container(
       padding: AppTheme.padding,
@@ -27,8 +47,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             child: _icon(Icons.arrow_back_ios,
                 color: Colors.black54, size: 15, padding: 12, isOutLine: true),
           ),
-           _icon(Icons.favorite,
-                color: LightColor.red, size: 15, padding: 12, isOutLine: false),
+          InkWell(
+            onTap: () {
+              setState(() {
+                isLiked = !isLiked;
+              });
+            },
+            child: _icon(isLiked ? Icons.favorite : Icons.favorite_border,
+                color: isLiked ? LightColor.red : LightColor.lightGrey,
+                size: 15,
+                padding: 12,
+                isOutLine: false),
+          )
         ],
       ),
     );
@@ -43,37 +73,47 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       height: 40,
       width: 40,
       padding: EdgeInsets.all(padding),
-      margin: EdgeInsets.all(padding),
+      // margin: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-          border: Border.all(
-              color: LightColor.iconColor,
-              style: isOutLine ? BorderStyle.solid : BorderStyle.none),
-          borderRadius: BorderRadius.all(Radius.circular(13)),
-          color: isOutLine ? Colors.transparent : Theme.of(context).backgroundColor,
-          boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: Color(0xfff8f8f8),
-                     blurRadius: 5,
-                     spreadRadius: 10,
-                     offset: Offset(5,5)
-                    ),
-              ],
-          ),
+        border: Border.all(
+            color: LightColor.iconColor,
+            style: isOutLine ? BorderStyle.solid : BorderStyle.none),
+        borderRadius: BorderRadius.all(Radius.circular(13)),
+        color:
+            isOutLine ? Colors.transparent : Theme.of(context).backgroundColor,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+              color: Color(0xfff8f8f8),
+              blurRadius: 5,
+              spreadRadius: 10,
+              offset: Offset(5, 5)),
+        ],
+      ),
       child: Icon(icon, color: color, size: size),
     );
   }
 
   Widget _productImage() {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: <Widget>[
-        TitleText(
-          text: "AIP",
-          fontSize: 160,
-          color: LightColor.lightGrey,
-        ),
-        Image.asset('assets/show_1.png')
-      ],
+    return AnimatedBuilder(
+      builder: (context, child) {
+        return AnimatedOpacity(
+          duration: Duration(milliseconds: 500),
+          opacity: animation.value,
+          child: child,
+        );
+      },
+      animation: animation,
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: <Widget>[
+          TitleText(
+            text: "AIP",
+            fontSize: 160,
+            color: LightColor.lightGrey,
+          ),
+          Image.asset('assets/show_1.png')
+        ],
+      ),
     );
   }
 
@@ -91,21 +131,29 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 
   Widget _thumbnail(String image) {
-    return Container(
-      height: 40,
-      width: 50,
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: LightColor.grey,
-        ),
-        borderRadius: BorderRadius.all(
-          Radius.circular(13),
-        ),
-        // color: Theme.of(context).backgroundColor,
-      ),
-      child: Image.asset(image),
-    );
+    return AnimatedBuilder(
+        animation: animation,
+        //  builder: null,
+        builder: (context, child) => AnimatedOpacity(
+              opacity: animation.value,
+              duration: Duration(milliseconds: 500),
+              child: child,
+            ),
+        child: Container(
+          height: 40,
+          width: 50,
+          margin: EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: LightColor.grey,
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(13),
+            ),
+            // color: Theme.of(context).backgroundColor,
+          ),
+          child: Image.asset(image),
+        ));
   }
 
   Widget _detailWidget() {
@@ -115,7 +163,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       minChildSize: .53,
       builder: (context, scrollController) {
         return Container(
-          padding: AppTheme.padding,
+          padding: AppTheme.padding.copyWith(bottom: 0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(40),
@@ -305,14 +353,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       ],
     );
   }
-  
-  FloatingActionButton _flotingButton(){
+
+  FloatingActionButton _flotingButton() {
     return FloatingActionButton(
-      onPressed: (){},
+      onPressed: () {},
       backgroundColor: LightColor.orange,
-      child: Icon(Icons.shopping_basket, color:Theme.of(context).floatingActionButtonTheme.backgroundColor),
+      child: Icon(Icons.shopping_basket,
+          color: Theme.of(context).floatingActionButtonTheme.backgroundColor),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

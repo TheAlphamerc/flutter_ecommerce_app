@@ -3,7 +3,8 @@ import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/wigets/BottomNavigationBar/bottom_curved_Painter.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  CustomBottomNavigationBar({Key key}) : super(key: key);
+  final Function(int) onIconPresedCallback;
+  CustomBottomNavigationBar({Key key, this.onIconPresedCallback}) : super(key: key);
 
   @override
   _CustomBottomNavigationBarState createState() =>
@@ -71,29 +72,25 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
           child: AnimatedContainer(
             height: isEnable ? 40 : 20,
             duration: Duration(milliseconds: 300),
-            // padding: EdgeInsets.all(isEnable ? 15 : 0),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-                color: isEnable ? LightColor.red : Colors.white,
+                color: isEnable ? LightColor.orange : Colors.white,
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: isEnable ? Color(0xfffeece2) : Colors.white,
                     blurRadius: 10,
                     spreadRadius: 5,
-                    offset: Offset(10, 10),
-                  ),
-                  BoxShadow(
-                    color: isEnable ? Color(0xfffeece2) : Colors.white,
-                    blurRadius: 10,
-                    spreadRadius: 5,
-                    offset: Offset(10, 10),
+                    offset: Offset(5, 5),
                   ),
                 ],
                 shape: BoxShape.circle),
-            child: Icon(icon,
+            child:Opacity(
+              opacity:isEnable ? _yController.value : 1,
+              child: Icon(icon,
                 color: isEnable
                     ? LightColor.background
                     : Theme.of(context).iconTheme.color),
+            )
           ),
         ),
       ),
@@ -123,7 +120,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
 
   void _handlePressed(int index) {
     if (_selectedIndex == index || _xController.isAnimating) return;
-
+    widget.onIconPresedCallback(index);
     setState(() {
       _selectedIndex = index;
     });

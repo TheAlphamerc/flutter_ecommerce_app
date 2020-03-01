@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/src/wigets/BottomNavigationBar/centered_elasticIn_curve.dart';
 
 class BackgroundCurvePainter extends CustomPainter {
-  static const _radiusTop = 40.0;
+  static const _radiusTop = 50.0;
   static const _radiusBottom = 30.0;
   static const _horizontalControlTop = 0.6;
   static const _horizontalControlBottom = 0.5;
