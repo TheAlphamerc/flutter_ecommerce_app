@@ -139,7 +139,10 @@ class _MainPageState extends State<MainPage> {
                           switchOutCurve: Curves.easeOutBack,
                           child:  isHomePageSelected
                             ? MyHomePage()
-                            : ShopingCartPage(),
+                            : Align(
+                              alignment: Alignment.topCenter,
+                              child:ShopingCartPage(),
+                            )
                         ))
                   ],
                 ),
