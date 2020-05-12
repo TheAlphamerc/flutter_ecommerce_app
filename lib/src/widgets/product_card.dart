@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/src/model/data.dart';
 import 'package:flutter_ecommerce_app/src/model/product.dart';
 import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
-import 'package:flutter_ecommerce_app/src/themes/theme.dart';
 import 'package:flutter_ecommerce_app/src/wigets/title_text.dart';
 
 class ProductCard extends StatefulWidget {
@@ -28,15 +26,15 @@ class _ProductCardState extends State<ProductCard> {
         Navigator.of(context).pushNamed('/detail');
         setState(() {
           // model.isSelected = !model.isSelected;
-        //   AppData.productList.forEach((x) {
-        //     if (x.id == model.id && x.name == model.name) {
-        //       return;
-        //     }
-        //     x.isSelected = false;
-        //   });
-        //   var m = AppData.productList
-        //       .firstWhere((x) => x.id == model.id && x.name == model.name);
-        //   m.isSelected = !m.isSelected;
+          //   AppData.productList.forEach((x) {
+          //     if (x.id == model.id && x.name == model.name) {
+          //       return;
+          //     }
+          //     x.isSelected = false;
+          //   });
+          //   var m = AppData.productList
+          //       .firstWhere((x) => x.id == model.id && x.name == model.name);
+          //   m.isSelected = !m.isSelected;
         });
       },
       child: Container(
@@ -54,16 +52,19 @@ class _ProductCardState extends State<ProductCard> {
           alignment: Alignment.center,
           children: <Widget>[
             Positioned(
-              left: 0,
-              top: 0,
-              child: IconButton(
-                icon: Icon(model.isliked ? Icons.favorite : Icons.favorite_border, color: model.isliked ? LightColor.red : LightColor.iconColor,),
-                 onPressed: (){
-                   setState(() {
-                     model.isliked = !model.isliked ;
-                   });
-                 })
-            ),
+                left: 0,
+                top: 0,
+                child: IconButton(
+                    icon: Icon(
+                      model.isliked ? Icons.favorite : Icons.favorite_border,
+                      color:
+                          model.isliked ? LightColor.red : LightColor.iconColor,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        model.isliked = !model.isliked;
+                      });
+                    })),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

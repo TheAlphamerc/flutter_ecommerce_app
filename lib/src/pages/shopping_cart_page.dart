@@ -5,8 +5,8 @@ import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/themes/theme.dart';
 import 'package:flutter_ecommerce_app/src/wigets/title_text.dart';
 
-class ShopingCartPage extends StatelessWidget {
-  const ShopingCartPage({Key key}) : super(key: key);
+class ShoppingCartPage extends StatelessWidget {
+  const ShoppingCartPage({Key key}) : super(key: key);
 
   Widget _cartItems() {
     return Column(children: AppData.cartList.map((x) => _item(x)).toList());

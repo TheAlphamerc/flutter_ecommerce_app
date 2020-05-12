@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/src/model/data.dart';
-import 'package:flutter_ecommerce_app/src/model/product.dart';
 import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/themes/theme.dart';
-import 'package:flutter_ecommerce_app/src/wigets/BottomNavigationBar/bootom_navigation_bar.dart';
-import 'package:flutter_ecommerce_app/src/wigets/prduct_icon.dart';
 import 'package:flutter_ecommerce_app/src/wigets/product_card.dart';
-import 'package:flutter_ecommerce_app/src/wigets/title_text.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_ecommerce_app/src/wigets/product_icon.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -42,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: ListView(
           scrollDirection: Axis.horizontal,
           children: AppData.categoryList
-              .map((category) => ProducIcon(
+              .map((category) => ProductIcon(
                     model: category,
                   ))
               .toList()),

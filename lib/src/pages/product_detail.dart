@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/src/model/category.dart';
 import 'package:flutter_ecommerce_app/src/model/data.dart';
 import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/themes/theme.dart';
-import 'package:flutter_ecommerce_app/src/wigets/prduct_icon.dart';
 import 'package:flutter_ecommerce_app/src/wigets/title_text.dart';
 
 class ProductDetailPage extends StatefulWidget {
@@ -23,7 +21,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 300));
     animation = Tween<double>(begin: 0, end: 1).animate(
-         CurvedAnimation(parent: controller, curve: Curves.easeInToLinear));
+        CurvedAnimation(parent: controller, curve: Curves.easeInToLinear));
     controller.forward();
   }
 
