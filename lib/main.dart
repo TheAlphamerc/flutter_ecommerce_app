@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/src/config/route.dart';
 import 'package:flutter_ecommerce_app/src/pages/mainPage.dart';
 import 'package:flutter_ecommerce_app/src/pages/product_detail.dart';
-import 'package:flutter_ecommerce_app/src/wigets/customRoute.dart';
+import 'package:flutter_ecommerce_app/src/widgets/customRoute.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'src/themes/theme.dart';

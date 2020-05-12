@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
-import 'package:flutter_ecommerce_app/src/wigets/BottomNavigationBar/bottom_curved_Painter.dart';
+import 'package:flutter_ecommerce_app/src/widgets/BottomNavigationBar/bottom_curved_Painter.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final Function(int) onIconPresedCallback;
