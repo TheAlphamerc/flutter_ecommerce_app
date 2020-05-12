@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/src/model/data.dart';
 import 'package:flutter_ecommerce_app/src/pages/home_page.dart';
-import 'package:flutter_ecommerce_app/src/pages/shoping_cart_page.dart';
+import 'package:flutter_ecommerce_app/src/pages/shopping_cart_page.dart';
 import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/themes/theme.dart';
-import 'package:flutter_ecommerce_app/src/wigets/BottomNavigationBar/bootom_navigation_bar.dart';
-import 'package:flutter_ecommerce_app/src/wigets/prduct_icon.dart';
-import 'package:flutter_ecommerce_app/src/wigets/product_card.dart';
-import 'package:flutter_ecommerce_app/src/wigets/title_text.dart';
+import 'package:flutter_ecommerce_app/src/widgets/BottomNavigationBar/bottom_navigation_bar.dart';
+import 'package:flutter_ecommerce_app/src/widgets/title_text.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title}) : super(key: key);
@@ -133,17 +130,16 @@ class _MainPageState extends State<MainPage> {
                     _appBar(),
                     _title(),
                     Expanded(
-                        child:AnimatedSwitcher(
-                          duration: Duration(milliseconds: 300),
-                          switchInCurve: Curves.easeInToLinear,
-                          switchOutCurve: Curves.easeOutBack,
-                          child:  isHomePageSelected
-                            ? MyHomePage()
-                            : Align(
-                              alignment: Alignment.topCenter,
-                              child:ShopingCartPage(),
-                            )
-                        ))
+                        child: AnimatedSwitcher(
+                            duration: Duration(milliseconds: 300),
+                            switchInCurve: Curves.easeInToLinear,
+                            switchOutCurve: Curves.easeOutBack,
+                            child: isHomePageSelected
+                                ? MyHomePage()
+                                : Align(
+                                    alignment: Alignment.topCenter,
+                                    child: ShoppingCartPage(),
+                                  )))
                   ],
                 ),
               ),

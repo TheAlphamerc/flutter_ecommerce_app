@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/src/model/data.dart';
-import 'package:flutter_ecommerce_app/src/model/product.dart';
 import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/themes/theme.dart';
-import 'package:flutter_ecommerce_app/src/wigets/BottomNavigationBar/bootom_navigation_bar.dart';
-import 'package:flutter_ecommerce_app/src/wigets/prduct_icon.dart';
-import 'package:flutter_ecommerce_app/src/wigets/product_card.dart';
-import 'package:flutter_ecommerce_app/src/wigets/title_text.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_ecommerce_app/src/widgets/product_card.dart';
+import 'package:flutter_ecommerce_app/src/widgets/product_icon.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -19,7 +15,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   Widget _icon(IconData icon, {Color color = LightColor.iconColor}) {
     return Container(
       padding: EdgeInsets.all(10),
@@ -42,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: ListView(
           scrollDirection: Axis.horizontal,
           children: AppData.categoryList
-              .map((category) => ProducIcon(
+              .map((category) => ProductIcon(
                     model: category,
                   ))
               .toList()),
@@ -102,9 +97,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[_search(), _categoryWidget(), _productWidget()],
-      );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[_search(), _categoryWidget(), _productWidget()],
+    );
   }
 }
