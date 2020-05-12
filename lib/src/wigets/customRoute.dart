@@ -6,7 +6,7 @@ class CustomRoute<T> extends MaterialPageRoute<T> {
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation, Widget child) {
-    if (settings.isInitialRoute) {
+    if (settings.name == "MainPage") {
       return child;
     }
     return FadeTransition(
