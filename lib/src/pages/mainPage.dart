@@ -5,6 +5,7 @@ import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/themes/theme.dart';
 import 'package:flutter_ecommerce_app/src/widgets/BottomNavigationBar/bottom_navigation_bar.dart';
 import 'package:flutter_ecommerce_app/src/widgets/title_text.dart';
+import 'package:flutter_ecommerce_app/src/widgets/extentions.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title}) : super(key: key);
@@ -41,7 +42,7 @@ class _MainPageState extends State<MainPage> {
               ),
               child: Image.asset("assets/user.png"),
             ),
-          )
+          ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)))
         ],
       ),
     );
@@ -58,7 +59,7 @@ class _MainPageState extends State<MainPage> {
         icon,
         color: color,
       ),
-    );
+    ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
   }
 
   Widget _title() {
@@ -84,10 +85,13 @@ class _MainPageState extends State<MainPage> {
             ),
             Spacer(),
             !isHomePageSelected
-                ? Icon(
-                    Icons.delete_outline,
-                    color: LightColor.orange,
-                  )
+                ? Container(
+                  padding: EdgeInsets.all(10),
+                  child: Icon(
+                      Icons.delete_outline,
+                      color: LightColor.orange,
+                    ),
+                ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)))
                 : SizedBox()
           ],
         ));
@@ -116,40 +120,44 @@ class _MainPageState extends State<MainPage> {
               child: Container(
                 height: AppTheme.fullHeight(context) - 50,
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [
-                    Color(0xfffbfbfb),
-                    Color(0xfff7f7f7),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                )),
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xfffbfbfb),
+                      Color(0xfff7f7f7),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     _appBar(),
                     _title(),
                     Expanded(
-                        child: AnimatedSwitcher(
-                            duration: Duration(milliseconds: 300),
-                            switchInCurve: Curves.easeInToLinear,
-                            switchOutCurve: Curves.easeOutBack,
-                            child: isHomePageSelected
-                                ? MyHomePage()
-                                : Align(
-                                    alignment: Alignment.topCenter,
-                                    child: ShoppingCartPage(),
-                                  )))
+                      child: AnimatedSwitcher(
+                        duration: Duration(milliseconds: 300),
+                        switchInCurve: Curves.easeInToLinear,
+                        switchOutCurve: Curves.easeOutBack,
+                        child: isHomePageSelected
+                            ? MyHomePage()
+                            : Align(
+                                alignment: Alignment.topCenter,
+                                child: ShoppingCartPage(),
+                              ),
+                      ),
+                    )
                   ],
                 ),
               ),
             ),
             Positioned(
-                bottom: 0,
-                right: 0,
-                child: CustomBottomNavigationBar(
-                  onIconPresedCallback: onBottomIconPressed,
-                ))
+              bottom: 0,
+              right: 0,
+              child: CustomBottomNavigationBar(
+                onIconPresedCallback: onBottomIconPressed,
+              ),
+            )
           ],
         ),
       ),

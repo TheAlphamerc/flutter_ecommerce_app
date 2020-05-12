@@ -1,9 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/src/model/data.dart';
 import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/themes/theme.dart';
 import 'package:flutter_ecommerce_app/src/widgets/product_card.dart';
 import 'package:flutter_ecommerce_app/src/widgets/product_icon.dart';
+import 'package:flutter_ecommerce_app/src/widgets/extentions.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -26,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
         icon,
         color: color,
       ),
-    );
+    ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
   }
 
   Widget _categoryWidget() {
@@ -35,12 +37,23 @@ class _MyHomePageState extends State<MyHomePage> {
       width: AppTheme.fullWidth(context),
       height: 80,
       child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: AppData.categoryList
-              .map((category) => ProductIcon(
-                    model: category,
-                  ))
-              .toList()),
+        scrollDirection: Axis.horizontal,
+        children: AppData.categoryList
+            .map(
+              (category) => ProductIcon(
+                model: category,
+                onSelected: (model) {
+                  setState(() {
+                    AppData.categoryList.forEach((item) {
+                      item.isSelected = false;
+                    });
+                    model.isSelected = true;
+                  });
+                },
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 
@@ -50,18 +63,29 @@ class _MyHomePageState extends State<MyHomePage> {
       width: AppTheme.fullWidth(context),
       height: AppTheme.fullWidth(context) * .7,
       child: GridView(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              childAspectRatio: 4 / 3,
-              mainAxisSpacing: 30,
-              crossAxisSpacing: 20),
-          padding: EdgeInsets.only(left: 20),
-          scrollDirection: Axis.horizontal,
-          children: AppData.productList
-              .map((product) => ProductCard(
-                    product: product,
-                  ))
-              .toList()),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 1,
+            childAspectRatio: 4 / 3,
+            mainAxisSpacing: 30,
+            crossAxisSpacing: 20),
+        padding: EdgeInsets.only(left: 20),
+        scrollDirection: Axis.horizontal,
+        children: AppData.productList
+            .map(
+              (product) => ProductCard(
+                product: product,
+                onSelected: (model) {
+                  setState(() {
+                    AppData.productList.forEach((item) {
+                      item.isSelected = false;
+                    });
+                    model.isSelected = true;
+                  });
+                },
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 
@@ -89,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           SizedBox(width: 20),
-          _icon(Icons.filter_list, color: Colors.black54),
+          _icon(Icons.filter_list, color: Colors.black54)
         ],
       ),
     );
@@ -97,9 +121,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[_search(), _categoryWidget(), _productWidget()],
+    return Container(
+      height: MediaQuery.of(context).size.height - 210,
+      child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        dragStartBehavior: DragStartBehavior.down,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            _search(),
+            _categoryWidget(),
+            _productWidget(),
+          ],
+        ),
+      ),
     );
   }
 }

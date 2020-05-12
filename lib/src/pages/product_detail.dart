@@ -3,6 +3,7 @@ import 'package:flutter_ecommerce_app/src/model/data.dart';
 import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/themes/theme.dart';
 import 'package:flutter_ecommerce_app/src/widgets/title_text.dart';
+import 'package:flutter_ecommerce_app/src/widgets/extentions.dart';
 
 class ProductDetailPage extends StatefulWidget {
   ProductDetailPage({Key key}) : super(key: key);
@@ -38,35 +39,38 @@ class _ProductDetailPageState extends State<ProductDetailPage>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          InkWell(
-            onTap: () {
+          _icon(
+            Icons.arrow_back_ios,
+            color: Colors.black54,
+            size: 15,
+            padding: 12,
+            isOutLine: true,
+            onPressed: () {
               Navigator.of(context).pop();
             },
-            child: _icon(Icons.arrow_back_ios,
-                color: Colors.black54, size: 15, padding: 12, isOutLine: true),
           ),
-          InkWell(
-            onTap: () {
-              setState(() {
-                isLiked = !isLiked;
-              });
-            },
-            child: _icon(isLiked ? Icons.favorite : Icons.favorite_border,
-                color: isLiked ? LightColor.red : LightColor.lightGrey,
-                size: 15,
-                padding: 12,
-                isOutLine: false),
-          )
+          _icon(isLiked ? Icons.favorite : Icons.favorite_border,
+              color: isLiked ? LightColor.red : LightColor.lightGrey,
+              size: 15,
+              padding: 12,
+              isOutLine: false, onPressed: () {
+            setState(() {
+              isLiked = !isLiked;
+            });
+          }),
         ],
       ),
     );
   }
 
-  Widget _icon(IconData icon,
-      {Color color = LightColor.iconColor,
-      double size = 20,
-      double padding = 10,
-      bool isOutLine = false}) {
+  Widget _icon(
+    IconData icon, {
+    Color color = LightColor.iconColor,
+    double size = 20,
+    double padding = 10,
+    bool isOutLine = false,
+    Function onPressed,
+  }) {
     return Container(
       height: 40,
       width: 40,
@@ -88,7 +92,11 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         ],
       ),
       child: Icon(icon, color: color, size: size),
-    );
+    ).ripple(() {
+      if (onPressed != null) {
+        onPressed();
+      }
+    }, borderRadius: BorderRadius.all(Radius.circular(13)));
   }
 
   Widget _productImage() {
@@ -130,28 +138,29 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 
   Widget _thumbnail(String image) {
     return AnimatedBuilder(
-        animation: animation,
-        //  builder: null,
-        builder: (context, child) => AnimatedOpacity(
-              opacity: animation.value,
-              duration: Duration(milliseconds: 500),
-              child: child,
-            ),
+      animation: animation,
+      //  builder: null,
+      builder: (context, child) => AnimatedOpacity(
+        opacity: animation.value,
+        duration: Duration(milliseconds: 500),
+        child: child,
+      ),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10),
         child: Container(
           height: 40,
           width: 50,
-          margin: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             border: Border.all(
               color: LightColor.grey,
             ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(13),
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(13)),
             // color: Theme.of(context).backgroundColor,
           ),
           child: Image.asset(image),
-        ));
+        ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13))),
+      ),
+    );
   }
 
   Widget _detailWidget() {
@@ -277,7 +286,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         border: Border.all(
             color: LightColor.iconColor,
             style: !isSelected ? BorderStyle.solid : BorderStyle.none),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(13)),
         color:
             isSelected ? LightColor.orange : Theme.of(context).backgroundColor,
       ),
@@ -286,7 +295,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         fontSize: 16,
         color: isSelected ? LightColor.background : LightColor.titleTextColor,
       ),
-    );
+    ).ripple(() {}, borderRadius: BorderRadius.all(Radius.circular(13)));
   }
 
   Widget _availableColor() {
