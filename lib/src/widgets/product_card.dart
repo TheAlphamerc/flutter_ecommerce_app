@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/src/model/data.dart';
+
 import 'package:flutter_ecommerce_app/src/model/product.dart';
 import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/widgets/title_text.dart';
@@ -55,15 +55,17 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 SizedBox(height: product.isSelected ? 15 : 0),
-                Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundColor: LightColor.orange.withAlpha(40),
-                    ),
-                    Image.asset(product.image)
-                  ],
+                Expanded(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundColor: LightColor.orange.withAlpha(40),
+                      ),
+                      Image.asset(product.image)
+                    ],
+                  ),
                 ),
                 // SizedBox(height: 5),
                 TitleText(
