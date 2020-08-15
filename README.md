@@ -84,6 +84,9 @@ Plugin Name        | Stars
 >
 > * [PayPal](https://www.paypal.me/TheAlphamerc/)
 
+> You can also nominate me for Github Star developer program
+> https://stars.github.com/nominate
+
 ## Visitors Count
 
 <img align="left" src = "https://profile-counter.glitch.me/flutter_ecommerce_app/count.svg" alt ="Loading">
