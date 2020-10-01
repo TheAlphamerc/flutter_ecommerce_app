@@ -1,10 +1,18 @@
-class AppUser{
-  String userId;
-  String userName ;
-  String userEmail ;
-  String userProfileurl ;
-AppUser({this.userId,this.userName, this.userEmail,this.userProfileurl});
+class AppUser {
+  final String userId;
+  final String email;
 
+  AppUser({this.email, this.userId});
+
+  Map<String,dynamic> toMap(){
+    return {
+      'userId': userId,
+      'email': email
+    };
+  }
+
+  AppUser.fromFirestore(Map<String,dynamic> firestore)
+    : userId = firestore['userId'],
+      email = firestore['email'];
 }
-
 
