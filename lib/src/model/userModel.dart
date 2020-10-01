@@ -10,8 +10,7 @@ class AppUser {
       'email': email
     };
   }
-
-  AppUser.fromFirestore(Map<String,dynamic> firestore)
+AppUser.fromFirestore(Map<String,dynamic> firestore)
     : userId = firestore['userId'],
       email = firestore['email'];
 }
