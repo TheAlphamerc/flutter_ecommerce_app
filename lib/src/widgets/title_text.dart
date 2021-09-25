@@ -12,13 +12,12 @@ class TitleText extends StatelessWidget {
       this.text,
       this.fontSize = 18,
       this.color = LightColor.titleTextColor,
-      this.fontWeight = FontWeight.w800
-      })
+      this.fontWeight = FontWeight.w800})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Text(text,
-        style: GoogleFonts.muli(
+        style: GoogleFonts.mulish(
             fontSize: fontSize, fontWeight: fontWeight, color: color));
   }
 }

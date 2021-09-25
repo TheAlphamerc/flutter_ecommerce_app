@@ -278,8 +278,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     );
   }
 
-  Widget _sizeWidget(String text,
-      {Color color = LightColor.iconColor, bool isSelected = false}) {
+  Widget _sizeWidget(String text, {bool isSelected = false}) {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
